@@ -8,11 +8,10 @@ struct BST_Node {
 	struct BST_Node* right;
 	int data;
 };
-#define NODE_SIZE sizeof(struct BST_Node)
 
 struct BST_Node* createNode(int data)
 {
-	struct BST_Node *new_node = malloc(NODE_SIZE);
+	struct BST_Node *new_node = malloc(sizeof(struct BST_Node));
 	new_node->data = data;
 	new_node->left = NULL;
 	new_node->right = NULL;
