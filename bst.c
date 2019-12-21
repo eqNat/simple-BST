@@ -39,12 +39,12 @@ int insertUnique(struct BST_Node** node, int data)
 	return 1;
 }
 
-void traversePrint(struct BST_Node* iter)
+void ascendingPrint(struct BST_Node* iter)
 {
 	if (iter) {
-		traversePrint(iter->left);
+		ascendingPrint(iter->left);
 		printf("%d\n", iter->data);
-		traversePrint(iter->right);
+		ascendingPrint(iter->right);
 	}
 }
 

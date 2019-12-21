@@ -16,7 +16,7 @@ int main()
 			insert(&smallTree, rand() % 1000);
 
 		printf("Fifty ints:\n");
-		traversePrint(smallTree);
+		ascendingPrint(smallTree);
 
 		delete_tree(smallTree);
 		smallTree = NULL;
