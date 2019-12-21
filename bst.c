@@ -29,11 +29,12 @@ void insert(struct BST_Node** node, int data)
 // returns 0 if duplicate value caused no insertion
 int insertUnique(struct BST_Node** node, int data)
 {
-	while (*node) {
+	while (*node)
 		if ((*node)->data == data)
 			return 0;
-		node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
-	}
+		else
+			node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
+
 	new_Node(node, data);
 	return 1;
 }
