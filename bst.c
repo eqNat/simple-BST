@@ -47,3 +47,12 @@ void traversePrint(struct BST_Node* iter)
 		traversePrint(iter->right);
 	}
 }
+
+void delete_tree(struct BST_Node* iter)
+{
+	if (iter) {
+		delete_tree(iter->left);
+		delete_tree(iter->right);
+		free(iter);
+	}
+}
