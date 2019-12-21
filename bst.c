@@ -9,13 +9,12 @@ struct BST_Node {
 	int data;
 };
 
-struct BST_Node* createNode(int data)
+void new_Node(struct BST_Node** node, int data)
 {
-	struct BST_Node *new_node = malloc(sizeof(struct BST_Node));
-	new_node->data = data;
-	new_node->left = NULL;
-	new_node->right = NULL;
-	return new_node;
+	*node = malloc(sizeof(struct BST_Node));
+	(*node)->data = data;
+	(*node)->left = NULL;
+	(*node)->right = NULL;
 }
 
 // allows duplicates to be inserted
@@ -23,7 +22,7 @@ void insert(struct BST_Node** node, int data)
 {
 	while (*node)
 		node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
-	*node = createNode(data);
+	new_Node(node, data);
 }
 
 // returns 1 if success
@@ -35,7 +34,7 @@ int insertUnique(struct BST_Node** node, int data)
 			return 0;
 		node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
 	}
-	*node = createNode(data);
+	new_Node(node, data);
 	return 1;
 }
 
