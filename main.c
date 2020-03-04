@@ -6,10 +6,8 @@
 
 int main()
 {
-
 	printf("---------------smallTree---------------\n");
-
-	{	// insert 50 ints, print data then delete
+	{// insert 50 ints, print data then delete
 		struct BST_Node* smallTree = NULL;
 		
 		for (int i = 0; i < 50; i++)
@@ -23,8 +21,7 @@ int main()
 	}
 
 	printf("---------------largeTree---------------\n");
-
-	{	// insert 10 million ints, print elapsed time then delete
+	{// insert 10 million ints, print elapsed time then delete
 		struct BST_Node* largeTree = NULL;
 		
 		printf("Inserting 10 million ints...\n");

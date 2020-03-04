@@ -9,34 +9,39 @@ struct BST_Node {
 	int data;
 };
 
-void new_Node(struct BST_Node** node, int data)
-{
-	*node = malloc(sizeof(struct BST_Node));
-	(*node)->data = data;
-	(*node)->left = NULL;
-	(*node)->right = NULL;
-}
-
 // allows duplicates to be inserted
 void insert(struct BST_Node** node, int data)
 {
 	while (*node)
 		node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
-	new_Node(node, data);
+	*node = calloc(sizeof(struct BST_Node), 1);
+	(*node)->data = data;
 }
 
 // returns 1 if success
-// returns 0 if duplicate value caused no insertion
+// returns 0 if duplicate value caused failure
 int insertUnique(struct BST_Node** node, int data)
 {
-	while (*node)
+	while (*node) {
 		if ((*node)->data == data)
 			return 0;
-		else
-			node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
-
-	new_Node(node, data);
+		node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
+	}
+	*node = calloc(sizeof(struct BST_Node), 1);
+	(*node)->data = data;
 	return 1;
+}
+
+// returns 1 if found
+// returns 0 if not found
+int search(struct BST_Node* node, int key)
+{
+	while (node) {
+		if (node->data == key)
+			return 1;
+		node = (node->data > key) ? node->left : node->right;
+	}
+	return 0;
 }
 
 void ascendingPrint(struct BST_Node* iter)
