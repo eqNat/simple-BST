@@ -17,23 +17,25 @@ fn insert2(node: & Box<i32>) {
 
 struct Tree(Box<Option<(i32, Tree, Tree)>>);
 impl Tree {
-    fn testing(&self) {
-        println!("in Tree: {:p}", self);
+    fn insert(&mut self, data: i32) {
+        while let Some((val, l, r)) = &*self.0 {
+            println!("loop");
+        }
     }
 }
 
-struct Node(Box<Option<i32>>);
+struct Node(Box<Option<(i32, i32)>>);
 impl Node {
-    fn print(&self) {
-        match *self.0 {
-            Some(i) => println!("in Node: {}", i),
-            None => println!("empty in Node")
+    fn print(&mut self) {
+        while let Some((i, j)) = *self.0 {
+            println!("in Node: {} {}", i, j);
+            break;
         }
     }
 }
 
 fn main() {
-    let stack_var: i32 = 10;
+    let mut stack_var: i32 = 10;
             
     println!("stack_var: {:p}", &stack_var);
 
@@ -53,6 +55,7 @@ fn main() {
 
     println!("");
 
-    let n = Node(Box::new(Some(65)));
+    let mut n = Node(Box::new(Some((65, 32))));
     n.print();
+
 }
