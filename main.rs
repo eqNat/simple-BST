@@ -4,20 +4,23 @@ enum Status {
 }
 
 struct Tree<T>(Box<Option<(T, Tree<T>, Tree<T>)>>);
-impl<T: std::cmp::PartialEq + std::cmp::PartialOrd> Tree<T> {
-    fn insert(mut self: &mut Tree<T>, val: T) -> Status {
-        while let Some((ref v, ref mut left, ref mut right)) = *self.0 {
-            if *v == val {
-                return Status::Duplicate
-            }
-            self =  if *v > val { left } else { right };
+
+impl<T: std::cmp::PartialEq + std::cmp::PartialOrd> Tree<T>
+{
+    fn insert(mut self: &mut Tree<T>, val: T) -> Status
+    {
+        while let Some((ref v, ref mut left, ref mut right)) = *self.0
+        {
+            if *v == val { return Status::Duplicate }
+            self = if *v > val { left } else { right }
         }
         *self = Tree(Box::new(Some((val, Tree(Box::new(None)), Tree(Box::new(None))))));
         return Status::Success
     }
 }
 
-fn main() {
+fn main()
+{
     let mut b = Tree(Box::new(None));
     b.insert(100);
     b.insert(50);
