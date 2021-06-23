@@ -1,14 +1,15 @@
-struct Tree(Box<Option<(i32, Tree, Tree)>>);
+struct Tree<T>(Box<Option<(T, Tree<T>, Tree<T>)>>);
 
-impl Tree {
-    fn insert(mut self: &mut Tree, val: i32) {
-        while let Some((v, ref mut left, ref mut right)) = *self.0 {
-            if v == val {
+impl<T: std::cmp::PartialEq + std::cmp::PartialOrd> Tree<T> {
+    fn insert(mut self: &mut Tree<T>, val: T) {
+        while let Some((ref v, ref mut left, ref mut right)) = *self.0 {
+            if *v == val {
                 return
             }
-            self =  if v > val { left } else { right };
+            self =  if *v > val {println!("left"); left } else {println!("right"); right };
         }
         *self = Tree(Box::new(Some((val, Tree(Box::new(None)), Tree(Box::new(None))))));
+    println!("inserted");
     }
 }
 
