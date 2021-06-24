@@ -1,5 +1,5 @@
 enum Status {
-    Success,
+    Unique,
     Duplicate,
 }
 
@@ -20,7 +20,17 @@ impl<T: std::cmp::PartialEq + std::cmp::PartialOrd + std::fmt::Display> Tree<T>
             self = if *data > val { left } else { right }
         }
         *self = Tree(Box::new(Some((val, Tree::new(), Tree::new()))));
-        return Status::Success
+        return Status::Unique
+    }
+
+    fn find(mut self: &mut Tree<T>, val: T) -> Status
+    {
+        while let Some((ref data, ref mut left, ref mut right)) = *self.0
+        {
+            if *data == val { return Status::Duplicate }
+            self = if *data > val { left } else { right }
+        }
+        return Status::Unique
     }
 
     fn print(self)
@@ -43,6 +53,19 @@ fn main()
     b.insert(150);
     b.insert(125);
     b.insert(175);
+    b.insert(75);
+
+    if let Status::Duplicate = b.find(125) {
+        println!("125 is found");
+    } else {
+        println!("125 is not found");
+    }
+
+    if let Status::Duplicate = b.find(127) {
+        println!("127 is found");
+    } else {
+        println!("127 is not found");
+    }
 
     b.print();
 }
