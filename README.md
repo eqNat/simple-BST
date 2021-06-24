@@ -1,2 +1,2 @@
 # simple-BST
-This is a non-balancing binary search tree using an iterative insert and recursive print.
+Two examples of binary search trees with iterative inserts written in C and safe Rust.
