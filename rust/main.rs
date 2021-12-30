@@ -26,9 +26,9 @@ impl Tree
         return Status::Unique
     }
 
-    fn find(mut self: &mut Tree, val: i32) -> Status
+    fn find(mut self: &Tree, val: i32) -> Status
     {
-        while let Tree::Node(data, ref mut left, ref mut right) = *self
+        while let Tree::Node(data, ref left, ref right) = *self
         {
             if data == val { return Status::Duplicate; }
             self = if data > val { left } else { right }
