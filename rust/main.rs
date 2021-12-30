@@ -3,35 +3,35 @@ enum Status {
     Duplicate,
 }
 
-enum Tree {
-    Node(i32, Box<Tree>, Box<Tree>),
+enum Tree<T> {
+    Node(T, Box<Tree<T>>, Box<Tree<T>>),
     Nil,
 }
 
-impl Tree
+impl<T: std::cmp::PartialEq + std::cmp::PartialOrd + std::fmt::Display> Tree<T>
 {
-    fn new() -> Tree
+    fn new() -> Tree<T>
     {
         Tree::Nil
     }
 
-    fn insert(mut self: &mut Tree, val: i32) -> Status
+    fn insert(mut self: &mut Tree<T>, val: T) -> Status
     {
-        while let Tree::Node(data, ref mut left, ref mut right) = *self
+        while let Tree::Node(ref data, ref mut left, ref mut right) = *self
         {
-            if data == val { return Status::Duplicate }
-            self = if data > val { left } else { right }
+            if *data == val { return Status::Duplicate }
+            self = if *data > val { left } else { right }
         }
         *self = Tree::Node(val, Box::new(Tree::Nil), Box::new(Tree::Nil));
         return Status::Unique
     }
 
-    fn find(mut self: &Tree, val: i32) -> Status
+    fn find(mut self: &Tree<T>, val: T) -> Status
     {
-        while let Tree::Node(data, ref left, ref right) = *self
+        while let Tree::Node(ref data, ref left, ref right) = *self
         {
-            if data == val { return Status::Duplicate; }
-            self = if data > val { left } else { right }
+            if *data == val { return Status::Duplicate; }
+            self = if *data > val { left } else { right }
         }
         return Status::Unique
     }
