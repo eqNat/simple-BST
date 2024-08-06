@@ -7,13 +7,13 @@
 int main()
 {
     printf("---------------smallTree---------------\n");
-    {// insert 50 ints, print data then delete
+    {// insert random 50 ints, print data then delete
         struct BST_Node* smallTree = NULL;
         
         for (int i = 0; i < 50; i++)
             insert(&smallTree, rand() % 1000);
 
-        printf("Fifty ints:\n");
+        printf("Fifty random ints:\n");
         ascendingPrint(smallTree);
 
         delete_tree(smallTree);
@@ -24,7 +24,7 @@ int main()
     {// insert 10 million ints, print elapsed time then delete
         struct BST_Node* largeTree = NULL;
         
-        printf("Inserting 10 million ints...\n");
+        printf("Inserting 10 million random ints...\n");
 
         clock_t t = clock();
 

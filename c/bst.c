@@ -4,16 +4,14 @@
 #include "bst.h"
 
 struct BST_Node {
-    struct BST_Node* left;
-    struct BST_Node* right;
     int data;
+    struct BST_Node* child[2];
 };
 
-// allows duplicates to be inserted
 void insert(struct BST_Node** node, int data)
 {
     while (*node)
-        node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
+        node = &(*node)->child[((*node)->data > data)];
     *node = calloc(sizeof(struct BST_Node), 1);
     (*node)->data = data;
 }
@@ -25,7 +23,7 @@ int insertUnique(struct BST_Node** node, int data)
     while (*node) {
         if ((*node)->data == data)
             return 0;
-        node = ((*node)->data > data) ? &(*node)->left : &(*node)->right;
+        node = &(*node)->child[((*node)->data > data)];
     }
     *node = calloc(sizeof(struct BST_Node), 1);
     (*node)->data = data;
@@ -39,7 +37,7 @@ int search(struct BST_Node* node, int key)
     while (node) {
         if (node->data == key)
             return 1;
-        node = (node->data > key) ? node->left : node->right;
+        node = node->child[(node->data > key)];
     }
     return 0;
 }
@@ -47,17 +45,17 @@ int search(struct BST_Node* node, int key)
 void ascendingPrint(struct BST_Node* iter)
 {
     if (iter) {
-        ascendingPrint(iter->left);
+        ascendingPrint(iter->child[1]);
         printf("%d\n", iter->data);
-        ascendingPrint(iter->right);
+        ascendingPrint(iter->child[0]);
     }
 }
 
 void delete_tree(struct BST_Node* iter)
 {
     if (iter) {
-        delete_tree(iter->left);
-        delete_tree(iter->right);
+        delete_tree(iter->child[0]);
+        delete_tree(iter->child[1]);
         free(iter);
     }
 }
