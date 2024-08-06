@@ -6,3 +6,7 @@ main.o: main.c bst.h
 
 bst.o: bst.c bst.h
 	gcc -c bst.c
+
+.PHONY: clean
+clean:
+	rm *.o bst
